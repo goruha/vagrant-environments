@@ -1,15 +1,15 @@
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
-require 'vagrant-exec/version'
+require 'vagrant-environments/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'vagrant-exec'
-  s.version     = VagrantPlugins::Exec::VERSION
+  s.name        = 'vagrant-environments'
+  s.version     = VagrantPlugins::Environments::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.author      = 'Alex Rodionov'
-  s.email       = 'p0deje@gmail.com'
-  s.homepage    = 'http://github.com/p0deje/vagrant-exec'
-  s.summary     = 'Execute commands in Vagrant synced folder'
-  s.description = 'Vagrant plugin to execute commands within the context of VM synced folder'
+  s.author      = 'Igor Rodionov'
+  s.email       = 'goruha@gmail.com'
+  s.homepage    = 'http://github.com/goruha/vagrant-environments'
+  s.summary     = 'Allow to config Vagrant work with multiple environments'
+  s.description = 'Vagrant plugin to config muiltiple environments (dev, test, stage, prod)'
   s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
