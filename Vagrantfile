@@ -1,5 +1,5 @@
  Vagrant.configure("2") do |config|
-
+   config.environments.default_environment = "local"
    config.environment.define config do |machine, options, env_settings|
      machine.vm.network :private_network, ip: options["ip"]
 

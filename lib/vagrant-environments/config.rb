@@ -3,7 +3,7 @@ require 'yaml'
 module VagrantPlugins
   module Environments
     class Config < Vagrant.plugin(2, :config)
-      attr_accessor :file, :active
+      attr_accessor :file, :active, :default_environment
       attr_reader :data
 
       DEFAULT_SETTINGS = {
@@ -13,6 +13,7 @@ module VagrantPlugins
       def initialize
         @file = UNSET_VALUE
         @active = UNSET_VALUE
+        @default_environment = UNSET_VALUE
       end
 
       def file=(path)
@@ -23,6 +24,8 @@ module VagrantPlugins
 
         if @active == UNSET_VALUE && !ENV['VAGRANT_ENVIRONMENT'].nil?
           @active = ENV['VAGRANT_ENVIRONMENT']
+        elsif
+          @active = @default_environment
         end
 
         @active
@@ -30,20 +33,23 @@ module VagrantPlugins
       end
 
       def data
-        finalize!
+        validate(nil)
         environments = YAML.load_file(@file)
-        environments[@active]
+        environments[active]
       end
 
       def validate(_)
         finalize!
         errors = _detected_errors
 
+        errors.push("Please define default environment") if @default_environment == UNSET_VALUE 
+
         if File.file?(@file)
 
           begin
             environments = YAML.load_file(@file)
             errors.push("There is no #{@active} environment in #{@file}") unless environments.has_key?(@active)
+
           rescue Exception
             errors.push("file #{@file} have wrong format")
           end
@@ -59,7 +65,6 @@ module VagrantPlugins
         @file = DEFAULT_SETTINGS[:file] if @file == UNSET_VALUE
         active
       end
-
 
     end #Config
   end #Envrionments
