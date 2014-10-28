@@ -1,0 +1,8 @@
+---
+  local:
+    configs:
+      chef_environment: "local"
+    machines:
+      server:
+        ip: "172.30.10.10"
+        cpu: 1
