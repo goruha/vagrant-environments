@@ -22,10 +22,8 @@ module VagrantPlugins
 
       def active
 
-        if @active == UNSET_VALUE && !ENV['VAGRANT_ENVIRONMENT'].nil?
-          @active = ENV['VAGRANT_ENVIRONMENT']
-        elsif
-          @active = @default_environment
+        if @active == UNSET_VALUE
+          @active = ENV['VAGRANT_ENVIRONMENT'].nil? ? @default_environment : ENV['VAGRANT_ENVIRONMENT']
         end
 
         @active
@@ -35,7 +33,7 @@ module VagrantPlugins
       def data
         validate(nil)
         environments = YAML.load_file(@file)
-        environments[active]
+        environments[@active]
       end
 
       def validate(_)

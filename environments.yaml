@@ -6,3 +6,10 @@
       server:
         ip: "172.30.10.10"
         cpu: 1
+  dev:
+    configs:
+      chef_environment: "develop"
+    machines:
+      server:
+        ip: "192.168.10.10"
+        cpu: 1

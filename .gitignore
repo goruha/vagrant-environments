@@ -6,3 +6,4 @@ Gemfile.lock
 results.html
 .yaml
 *.gem
+.vagrant
